@@ -7,6 +7,7 @@ import pro.sky.EmployeeHomework.Exceptions.EmployeeNotFoundException;
 import pro.sky.EmployeeHomework.Exceptions.EmployeeStorageIsFullException;
 import pro.sky.EmployeeHomework.service.EmployeeService;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -43,6 +44,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAllEmployees() {
-        return employeeBook;
+        return Collections.unmodifiableList(employeeBook);
     }
 }
