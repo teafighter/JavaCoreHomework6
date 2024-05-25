@@ -7,15 +7,15 @@ import pro.sky.EmployeeHomework.Exceptions.EmployeeNotFoundException;
 import pro.sky.EmployeeHomework.Exceptions.EmployeeStorageIsFullException;
 import pro.sky.EmployeeHomework.service.EmployeeService;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         Employee employeeToFind = new Employee(firstName, lastName);
-        if (employeeBook.contains(employeeToFind)) {
+        if (employeeBook.containsKey(employeeToFind.getFullname())) {
             return employeeToFind;
         } else throw new EmployeeNotFoundException("Сотрудник не найден");
     }
@@ -23,27 +23,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addEmployee(String firstName, String lastName) {
         Employee employeeToAdd = new Employee(firstName, lastName);
-        if (employeeBook.contains(employeeToAdd)) {
+        if (employeeBook.containsKey(employeeToAdd.getFullname())) {
             throw new EmployeeAlreadyAddedException("Добавляемый сотрудник уже имеется");
         }
         if (employeeBook.size() >= maxEmployees) {
             throw new EmployeeStorageIsFullException("Хранилище сотрудников переполнено");
         }
-        employeeBook.add(new Employee(firstName, lastName));
+        employeeBook.put(employeeToAdd.getFullname(), employeeToAdd);
         return employeeToAdd;
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
         Employee employeeToFire = new Employee(firstName, lastName);
-        if (employeeToFire.equals(findEmployee(firstName, lastName))) {
-            employeeBook.remove(employeeToFire);
+        if (employeeBook.containsKey(employeeToFire.getFullname())) {
+            employeeBook.remove(employeeToFire.getFullname());
             return employeeToFire;
         } else throw new EmployeeNotFoundException("Сотрудник не найден");
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return Collections.unmodifiableList(employeeBook);
+    public Collection<Employee> getAllEmployees() {
+        return Collections.unmodifiableCollection(employeeBook.values());
     }
 }

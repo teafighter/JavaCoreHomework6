@@ -36,4 +36,8 @@ public class Employee {
     public String toString() {
         return "Сотрудник: " + firstName + " " + lastName;
     }
+
+    public String getFullname() {
+        return firstName + " " + lastName;
+    }
 }

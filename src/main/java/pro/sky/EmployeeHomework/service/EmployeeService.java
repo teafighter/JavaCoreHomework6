@@ -3,16 +3,13 @@ package pro.sky.EmployeeHomework.service;
 import org.springframework.stereotype.Service;
 import pro.sky.EmployeeHomework.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public interface EmployeeService {
-    List<Employee> employeeBook = new ArrayList<>(List.of(
-            new Employee("Petr", "Petrov"),
-            new Employee("Nikolai", "Nikolaev"),
-            new Employee("Fedor", "Fedorov"),
-            new Employee("Anton", "Antonov")));
+    Map<String, Employee> employeeBook = new HashMap<>();
 
     int maxEmployees = 5;
 
@@ -22,5 +19,5 @@ public interface EmployeeService {
 
     Employee removeEmployee(String firstName, String lastName);
 
-    List<Employee> getAllEmployees();
+    Collection<Employee> getAllEmployees();
 }
