@@ -5,6 +5,8 @@ import java.util.Objects;
 public class Employee {
     private final String firstName; // имя
     private final String lastName; // фамилия
+    private Integer salary; // зарплата
+    private Integer department; // отдел
 
     // создание нового сотрудника
     public Employee(String firstName, String lastName) {
@@ -18,6 +20,14 @@ public class Employee {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public Integer getDepartment() {
+        return department;
     }
 
     @Override
