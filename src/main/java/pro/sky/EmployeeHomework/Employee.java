@@ -1,7 +1,9 @@
 package pro.sky.EmployeeHomework;
 
-import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
+import pro.sky.EmployeeHomework.Exceptions.StringContainsWrongSymbols;
 
+import java.util.Objects;
 public class Employee {
     private final String firstName; // имя
     private final String lastName; // фамилия
@@ -10,8 +12,8 @@ public class Employee {
 
     // создание нового сотрудника
     public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = checkInput(firstName);
+        this.lastName = checkInput(lastName);
     }
 
     public String getFirstName() {
@@ -50,4 +52,12 @@ public class Employee {
     public String getFullname() {
         return firstName + " " + lastName;
     }
+
+    private String checkInput(String string) {
+        if (StringUtils.containsAny(string, "0123456789!@#$%^&*()-=_+")) {
+            throw new StringContainsWrongSymbols("Введенные данные содержат недопустимые символы");
+        }
+        return StringUtils.capitalize(StringUtils.lowerCase(string));
+    }
+
 }

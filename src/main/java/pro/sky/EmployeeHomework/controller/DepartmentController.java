@@ -42,7 +42,7 @@ public class DepartmentController {
     }
 
     //4. Возвращать всех сотрудников с разделением по отделам.
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/all-grouped")
     public Map<Integer, List<Employee>> getEmployeesGroupedByDept() {
         return departmentService.getEmployeesGroupedByDept();
     }
