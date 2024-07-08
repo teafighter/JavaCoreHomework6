@@ -3,7 +3,6 @@ package pro.sky.EmployeeHomework.service;
 import org.springframework.stereotype.Service;
 import pro.sky.EmployeeHomework.Employee;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,5 +18,5 @@ public interface EmployeeService {
 
     Employee removeEmployee(String firstName, String lastName);
 
-    Collection<Employee> getAllEmployees();
+    Map<String, Employee> getAllEmployees();
 }

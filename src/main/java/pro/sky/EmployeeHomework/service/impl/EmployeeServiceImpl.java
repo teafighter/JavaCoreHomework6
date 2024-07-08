@@ -1,5 +1,6 @@
 package pro.sky.EmployeeHomework.service.impl;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import pro.sky.EmployeeHomework.Employee;
 import pro.sky.EmployeeHomework.Exceptions.EmployeeAlreadyAddedException;
@@ -7,11 +8,17 @@ import pro.sky.EmployeeHomework.Exceptions.EmployeeNotFoundException;
 import pro.sky.EmployeeHomework.Exceptions.EmployeeStorageIsFullException;
 import pro.sky.EmployeeHomework.service.EmployeeService;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+    @PostConstruct
+    public void init() {
+        addEmployee("Ivan", "Petrov");
+        addEmployee("Ivan", "Ivanov");
+        addEmployee("Ivan", "Sidorov");
+    }
+
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         Employee employeeToFind = new Employee(firstName, lastName);
@@ -43,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Collection<Employee> getAllEmployees() {
-        return Collections.unmodifiableCollection(employeeBook.values());
+    public Map<String, Employee> getAllEmployees() {
+        return employeeBook;
     }
 }
