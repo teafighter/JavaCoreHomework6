@@ -1,9 +1,6 @@
 package pro.sky.EmployeeHomework.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.sky.EmployeeHomework.Employee;
 import pro.sky.EmployeeHomework.service.DepartmentService;
 
@@ -11,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/department")
 public class DepartmentController {
 
     private final DepartmentService departmentService;
@@ -20,29 +17,32 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    //1. Возвращать сотрудника с максимальной зарплатой на основе номера отдела, который приходит в запрос из браузера.
-    // /departments/max-salary?departmentId=5
-    @GetMapping(path = "/max-salary")
-    public Employee maxDeptSalary(@RequestParam(name = "departmentId") Integer department) {
+    // GET http://localhost:8080/department/{id}/salary/max
+    // возвращает максимальную зарплату по департаменту.
+    @GetMapping(path = "{id}/salary/max")
+    public Employee maxDeptSalary(@PathVariable("id") @RequestParam(name = "departmentId") Integer department) {
         return departmentService.maxDeptSalary(department);
     }
 
-    //2.  Возвращать сотрудника с минимальной зарплатой на основе номера отдела.
-    // /departments/min-salary?departmentId=5
-    @GetMapping(path = "/min-salary")
-    public Employee minDeptSalary(@RequestParam(name = "departmentId") Integer department) {
+    // GET http://localhost:8080/department/{id}/salary/min
+    // возвращает минимальную зарплату по департаменту.
+    @GetMapping(path = "{id}/salary/min")
+    public Employee minDeptSalary(@PathVariable("id") @RequestParam(name = "departmentId") Integer department) {
         return departmentService.maxDeptSalary(department);
     }
 
-    //3. Возвращать всех сотрудников по отделу.
-    //departments/all?departmentId=5
-    @GetMapping(path = "/all")
-    public List<Employee> getDeptEmployees(@RequestParam(name = "departmentId") Integer department) {
+    // GET http://localhost:8080/department/{id}/employees
+    // возвращает список сотрудников по департаменту.
+    @GetMapping(path = "{id}/employees")
+    public List<Employee> getDeptEmployees(@PathVariable("id") @RequestParam(name = "departmentId") Integer department) {
         return departmentService.getDeptEmployees(department);
     }
 
-    //4. Возвращать всех сотрудников с разделением по отделам.
-    @GetMapping(path = "/all-grouped")
+    // GET http://localhost:8080/department/employees
+    // возвращает сотрудников, сгруппированых по отделам
+    // в виде Map<Integer,List<Employees>>,
+    // где ключ — это номер отдела, а значение — список сотрудников данного отдела.
+    @GetMapping(path = "/employees")
     public Map<Integer, List<Employee>> getEmployeesGroupedByDept() {
         return departmentService.getEmployeesGroupedByDept();
     }

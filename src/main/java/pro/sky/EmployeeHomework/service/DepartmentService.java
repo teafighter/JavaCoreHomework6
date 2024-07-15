@@ -20,4 +20,6 @@ public interface DepartmentService {
 
     //4. Возвращать всех сотрудников с разделением по отделам.
     Map<Integer, List<Employee>> getEmployeesGroupedByDept();
+
+    Integer sumDeptSalary (Integer department);
 }
